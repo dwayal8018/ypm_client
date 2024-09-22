@@ -1,0 +1,32 @@
+<div class="dashboard-container">
+    <div *ngIf="userRole == 'admin'">
+      <h2>Admin Dashboard</h2>
+      <p>Welcome Admin! Here are your tasks:</p>
+      <ul>
+        <li>Manage Users</li>
+        <li>View Reports</li>
+        <li>System Settings</li>
+      </ul>
+    </div>
+  
+    <div *ngIf="userRole === 'client'">
+      <h2>Client Dashboard</h2>
+      <p>Welcome Client! Here are your options:</p>
+      <ul>
+        <li>View Orders</li>
+        <li>Request Support</li>
+        <li>Manage Profile</li>
+      </ul>
+    </div>
+  
+    <div *ngIf="userRole === 'tech expert'">
+      <h2>Tech Expert Dashboard</h2>
+      <p>Welcome Tech Expert! Here’s what you can do:</p>
+      <ul>
+        <li>View Assigned Service Requests</li>
+        <li>Update Request Status</li>
+        <li>Manage Feedback</li>
+      </ul>
+    </div>
+  </div>
+  

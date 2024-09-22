@@ -1,0 +1,90 @@
+<div class="container" *ngIf="viewPage">
+  <h2 class="center-align">Custom PC Builds</h2>
+  <a class="btn waves-effect waves-light green" (click)="openAddPage()">Add Build</a>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Build Type</th>
+        <th>Budget</th>
+        <th>Status</th>
+        <th>Client ID</th>
+        <th>Tech Expert ID</th>
+        <th>Admin ID</th>
+        <th class="action">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let build of buildList">
+        <td>{{ build.customPCID }}</td>
+        <td>{{ build.buildType }}</td>
+        <td>{{ build.budget }}</td>
+        <td>
+          <span [ngClass]="getStatusClass(build.buildStatus)" class="badge">{{ build.buildStatus  }}</span>
+        </td>
+        <td>{{ build.clientID }}</td>
+        <td>{{ build.techExpertID }}</td>
+        <td>{{ build.adminID }}</td>
+        <td class="action-btn">
+          <a class="btn waves-effect waves-light orange" (click)="openEditPage(build.customPCID)">Edit</a>
+          <a class="btn waves-effect waves-light red" (click)="deleteBuild(build.customPCID)">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="container" *ngIf="editPage">
+  <h2 class="center-align">{{ currentBuildId ? 'Edit Build' : 'Create Build' }}</h2>
+  <form [formGroup]="buildForm" (ngSubmit)="onSubmit()">
+    <div class="input-field">
+      <input id="buildType" formControlName="buildType" class="validate" />
+      <label for="buildType">Build Type</label>
+      <div *ngIf="buildForm.get('buildType')?.invalid && buildForm.get('buildType')?.touched" class="text-danger">
+        Build Type is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="budget" type="number" formControlName="budget" class="validate" />
+      <label for="budget">Budget</label>
+      <div *ngIf="buildForm.get('budget')?.invalid && buildForm.get('budget')?.touched" class="text-danger">
+        Budget is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="buildStatus" formControlName="buildStatus" class="validate" />
+      <label for="buildStatus">Build Status</label>
+      <div *ngIf="buildForm.get('buildStatus')?.invalid && buildForm.get('buildStatus')?.touched" class="text-danger">
+        Build Status is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="clientID" type="number" formControlName="clientID" class="validate" />
+      <label for="clientID">Client ID</label>
+      <div *ngIf="buildForm.get('clientID')?.invalid && buildForm.get('clientID')?.touched" class="text-danger">
+        Client ID is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="techExpertID" type="number" formControlName="techExpertID" class="validate" />
+      <label for="techExpertID">Tech Expert ID</label>
+      <div *ngIf="buildForm.get('techExpertID')?.invalid && buildForm.get('techExpertID')?.touched" class="text-danger">
+        Tech Expert ID is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="adminID" type="number" formControlName="adminID" class="validate" />
+      <label for="adminID">Admin ID</label>
+      <div *ngIf="buildForm.get('adminID')?.invalid && buildForm.get('adminID')?.touched" class="text-danger">
+        Admin ID is required.
+      </div>
+    </div>
+
+    <button class="btn waves-effect waves-light" type="submit" [disabled]="buildForm.invalid">Save</button>
+  </form>
+</div>

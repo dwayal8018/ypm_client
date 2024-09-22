@@ -1,0 +1,137 @@
+<!-- <div class="container" *ngIf="viewPage">
+  <h2 class="center-align">PC Components</h2>
+  <a class="btn waves-effect waves-light green" (click)="openAddPage()">Add Component</a>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Component Name</th>
+        <th>Component Model</th>
+        <th>Component Type</th>
+        <th>Price</th>
+        <th class="action">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let component of componentList">
+        <td>{{ component.pcComponentID }}</td>
+        <td>{{ component.componentName }}</td>
+        <td>{{ component.componentModel }}</td>
+        <td>{{ component.componentType }}</td>
+        <td>{{ component.price }}</td>
+        <td class="action-btn">
+          <a class="btn waves-effect waves-light orange" (click)="openEditPage(component.pcComponentID)">Edit</a>
+          <a class="btn waves-effect waves-light red" (click)="deleteComponent(component.pcComponentID)">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="container" *ngIf="editPage">
+  <h2 class="center-align">{{ currentComponentId ? 'Edit Component' : 'Create Component' }}</h2>
+  <form [formGroup]="componentForm" (ngSubmit)="onSubmit()">
+    <div class="input-field">
+      <input id="componentName" formControlName="componentName" class="validate" />
+      <label for="componentName">Component Name</label>
+      <div *ngIf="componentForm.get('componentName')?.invalid && componentForm.get('componentName')?.touched" class="text-danger">
+        Component Name is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="componentModel" formControlName="componentModel" class="validate" />
+      <label for="componentModel">Component Model</label>
+      <div *ngIf="componentForm.get('componentModel')?.invalid && componentForm.get('componentModel')?.touched" class="text-danger">
+        Component Model is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="componentType" formControlName="componentType" class="validate" />
+      <label for="componentType">Component Type</label>
+      <div *ngIf="componentForm.get('componentType')?.invalid && componentForm.get('componentType')?.touched" class="text-danger">
+        Component Type is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="price" type="number" formControlName="price" class="validate" />
+      <label for="price">Price</label>
+      <div *ngIf="componentForm.get('price')?.invalid && componentForm.get('price')?.touched" class="text-danger">
+        Price is required.
+      </div>
+    </div>
+
+    <button class="btn waves-effect waves-light" type="submit" [disabled]="componentForm.invalid">Save</button>
+  </form>
+</div> -->
+
+<div class="container" *ngIf="viewPage">
+  <h2 class="center-align">PC Components</h2>
+  <a class="btn waves-effect waves-light green" (click)="openAddPage()">Add Component</a>
+  <div class="card-container">
+    <div class="card" *ngFor="let component of componentList">
+      <!-- <div class="card-image">
+        <img [src]="component.imageUrl" alt="{{ component.componentName }}">
+      </div> -->
+      <div class="card-content">
+        <span class="card-title">{{ component.componentName }}</span>
+        <p><strong>Model:</strong> {{ component.componentModel }}</p>
+        <p><strong>Type:</strong> {{ component.componentType }}</p>
+        <p><strong>Price:</strong> ${{ component.price }}</p>
+      </div>
+      <div class="card-action">
+        <a class="btn waves-effect waves-light orange" (click)="openEditPage(component.pcComponentID)">Edit</a>
+        <a class="btn waves-effect waves-light red" (click)="deleteComponent(component.pcComponentID)">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="editPage">
+  <h2 class="center-align">{{ currentComponentId ? 'Edit Component' : 'Create Component' }}</h2>
+  <form [formGroup]="componentForm" (ngSubmit)="onSubmit()">
+    <div class="input-field">
+      <input id="componentName" formControlName="componentName" class="validate" />
+      <label for="componentName">Component Name</label>
+      <div *ngIf="componentForm.get('componentName')?.invalid && componentForm.get('componentName')?.touched" class="text-danger">
+        Component Name is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="componentModel" formControlName="componentModel" class="validate" />
+      <label for="componentModel">Component Model</label>
+      <div *ngIf="componentForm.get('componentModel')?.invalid && componentForm.get('componentModel')?.touched" class="text-danger">
+        Component Model is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="componentType" formControlName="componentType" class="validate" />
+      <label for="componentType">Component Type</label>
+      <div *ngIf="componentForm.get('componentType')?.invalid && componentForm.get('componentType')?.touched" class="text-danger">
+        Component Type is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="price" type="number" formControlName="price" class="validate" />
+      <label for="price">Price</label>
+      <div *ngIf="componentForm.get('price')?.invalid && componentForm.get('price')?.touched" class="text-danger">
+        Price is required.
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input id="imageUrl" formControlName="imageUrl" class="validate" />
+      <label for="imageUrl">Image URL</label>
+      <div *ngIf="componentForm.get('imageUrl')?.invalid && componentForm.get('imageUrl')?.touched" class="text-danger">
+        Image URL is required.
+      </div>
+    </div>
+
+    <button class="btn waves-effect waves-light" type="submit" [disabled]="componentForm.invalid">Save</button>
+  </form>
+</div>

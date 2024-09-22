@@ -1,0 +1,86 @@
+.container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .container h2 {
+    color: #232f3e;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container p {
+    color: #555;
+    font-family: Arial, sans-serif;
+  }
+  
+  .btn{
+    width: fit-content !important;
+    margin-right: 2px !important;
+  }
+
+  .action{
+    width:200px !important;
+  }
+
+  .action-btn{
+    width: fit-content !important;
+  }
+
+  .badge{
+    width: 100px;
+    height: 30px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .input-field>label{
+    position:absolute;
+  }
+
+  select {
+    display: inline-block; 
+    border: 1px solid #c9c7c7;
+}
+/* 
+.input-field label.active {
+  transform: translateY(-140%);
+  font-size: 12px;
+}
+.input-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 16px;
+  color: #9e9e9e;
+  transition: 0.2s ease all;
+}
+
+.input-field select {
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #c9c7c7;
+  border-radius: 4px;
+}
+
+.input-field label.active, .input-field select:focus + label, .input-field select:not([value=""]) + label {
+  top: -20px;
+  left: 10px;
+  font-size: 12px;
+  color: #26a69a;
+}
+
+.input-field select:focus {
+  outline: none;
+  border-color: #26a69a;
+} */

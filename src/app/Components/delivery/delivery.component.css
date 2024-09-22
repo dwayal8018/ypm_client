@@ -1,0 +1,19 @@
+.delivery-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .delivery-container h2 {
+    color: #232f3e;
+    font-family: Arial, sans-serif;
+  }
+  
+  .delivery-container p {
+    color: #555;
+    font-family: Arial, sans-serif;
+  }
+  
