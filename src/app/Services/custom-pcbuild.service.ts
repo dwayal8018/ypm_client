@@ -24,7 +24,7 @@ export class CustomPCBuildService {
   }
 
   updateBuild(id: number, build: CustomPCBuild): Observable<CustomPCBuild> {
-    return this.http.put<CustomPCBuild>(`${this.baseUrl}/${id}`, build);
+    return this.http.post<CustomPCBuild>(`${this.baseUrl}`, build);
   }
 
   deleteBuild(id: number): Observable<void> {

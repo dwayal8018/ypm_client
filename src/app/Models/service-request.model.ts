@@ -1,11 +1,13 @@
+import { User } from "./user.model";
+
 export class ServiceRequest {
   serviceID: number;
   serviceReqDate: string;
   serviceReqStatus: string;
   type: string;
   priority: string;
-  clientID: number|null;
-  techExpertID: number|null;
+  client: User;
+  techExpert: User;
 
   constructor() {
     this.serviceID = 0;
@@ -13,7 +15,7 @@ export class ServiceRequest {
     this.serviceReqStatus = "";
     this.type = "";
     this.priority = "";
-    this.clientID = null;
-    this.techExpertID = null;
+    this.client = new User();
+    this.techExpert = new User();
   }
 }

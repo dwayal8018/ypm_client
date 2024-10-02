@@ -91,47 +91,48 @@
 
 <div class="container" *ngIf="editPage">
   <h2 class="center-align">{{ currentComponentId ? 'Edit Component' : 'Create Component' }}</h2>
-  <form [formGroup]="componentForm" (ngSubmit)="onSubmit()">
+  <form  (ngSubmit)="onSubmit()">
     <div class="input-field">
-      <input id="componentName" formControlName="componentName" class="validate" />
-      <label for="componentName">Component Name</label>
-      <div *ngIf="componentForm.get('componentName')?.invalid && componentForm.get('componentName')?.touched" class="text-danger">
+      <input id="componentName" [(ngModel)]="component.componentName" name="componentName" class="validate" />
+      <label for="componentName" [ngClass]="{ 'active': component.componentName }">Component Name</label>
+      <!-- <div *ngIf="componentForm.get('componentName')?.invalid && componentForm.get('componentName')?.touched" class="text-danger">
         Component Name is required.
-      </div>
+      </div> -->
     </div>
 
     <div class="input-field">
-      <input id="componentModel" formControlName="componentModel" class="validate" />
-      <label for="componentModel">Component Model</label>
-      <div *ngIf="componentForm.get('componentModel')?.invalid && componentForm.get('componentModel')?.touched" class="text-danger">
+      <input id="componentModel" [(ngModel)]="component.componentModel" name="componentModel" class="validate" />
+      <label for="componentModel" [ngClass]="{ 'active': component.componentModel }">Component Model</label>
+      <!-- <div *ngIf="componentForm.get('componentModel')?.invalid && componentForm.get('componentModel')?.touched" class="text-danger">
         Component Model is required.
-      </div>
+      </div> -->
     </div>
 
     <div class="input-field">
-      <input id="componentType" formControlName="componentType" class="validate" />
-      <label for="componentType">Component Type</label>
-      <div *ngIf="componentForm.get('componentType')?.invalid && componentForm.get('componentType')?.touched" class="text-danger">
+      <input id="componentType" [(ngModel)]="component.componentType" name="componentType" class="validate" />
+      <label for="componentType" [ngClass]="{ 'active': component.componentType }">Component Type</label>
+      <!-- <div *ngIf="componentForm.get('componentType')?.invalid && componentForm.get('componentType')?.touched" class="text-danger">
         Component Type is required.
-      </div>
+      </div> -->
     </div>
 
     <div class="input-field">
-      <input id="price" type="number" formControlName="price" class="validate" />
-      <label for="price">Price</label>
-      <div *ngIf="componentForm.get('price')?.invalid && componentForm.get('price')?.touched" class="text-danger">
+      <input id="price" type="number" [(ngModel)]="component.price" name="price" class="validate" />
+      <label for="price" [ngClass]="{ 'active': component.price }">Price</label>
+      <!-- <div *ngIf="componentForm.get('price')?.invalid && componentForm.get('price')?.touched" class="text-danger">
         Price is required.
-      </div>
+      </div> -->
     </div>
 
     <div class="input-field">
-      <input id="imageUrl" formControlName="imageUrl" class="validate" />
-      <label for="imageUrl">Image URL</label>
-      <div *ngIf="componentForm.get('imageUrl')?.invalid && componentForm.get('imageUrl')?.touched" class="text-danger">
+      <input id="imageUrl" [(ngModel)]="component.imageUrl" name="imageUrl" class="validate" />
+      <label for="imageUrl" [ngClass]="{ 'active': component.imageUrl }">Image URL</label>
+      <!-- <div *ngIf="componentForm.get('imageUrl')?.invalid && componentForm.get('imageUrl')?.touched" class="text-danger">
         Image URL is required.
-      </div>
+      </div> -->
     </div>
 
-    <button class="btn waves-effect waves-light" type="submit" [disabled]="componentForm.invalid">Save</button>
+    <button class="btn waves-effect waves-light" type="submit" >Save</button>
+    <button class="btn waves-effect waves-light" type="cancel" (click)="cancelPage()">cancel</button>
   </form>
 </div>

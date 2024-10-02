@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 })
 
 export class ServiceRequestService {
+ 
 
   apiUrl = "http://localhost:8080/api/service-requests";
 
@@ -17,5 +18,9 @@ export class ServiceRequestService {
 
   createServiceRequest(serviceRequestBody:any){
     return this.http.post<any>(this.apiUrl+"/create-service",serviceRequestBody);
+  }
+
+  deleteServiceRequest(id: number) {
+    return this.http.delete<any>(this.apiUrl+"/"+id);
   }
 }

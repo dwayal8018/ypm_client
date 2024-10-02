@@ -40,6 +40,8 @@ export class ServiceRequestComponent implements OnInit {
   userList: User[] = [];
   techExpertsList: User[] = [];
   clientsList: User[] = [];
+  selectedClient: User=new User();
+  selectedTechExpert: User=new User();
 
   
   constructor(
@@ -71,9 +73,6 @@ export class ServiceRequestComponent implements OnInit {
       this.serviceRequests = data;
     });
   }
-  // get techExpertList(): User[] {
-  //   return this.userList.filter(user => user.role === 'Tech Expert');
-  // }
 
   getClientList() {
     this.clientsList = this.userList.filter(user => user.role === 'client');
@@ -81,11 +80,17 @@ export class ServiceRequestComponent implements OnInit {
   getTechExpertList() {
     this.techExpertsList = this.userList.filter(user => user.role === 'techExpert');
   }
-  selectClient(event:any){
-    this.serviceRequest.techExpertID=event.target.value;
-  }
+
+
+  selectClient(event: any) {
+    this.selectedClient = event;
+    this.serviceRequest.client=new User();
+    this.serviceRequest.client.userID = this.selectedClient.userID;
+}
   selectTechExpert(event:any){
-    this.serviceRequest.techExpertID=event.target.value;
+    this.selectedTechExpert=event;
+    this.serviceRequest.techExpert=new User();
+    this.serviceRequest.techExpert.userID=this.selectedTechExpert.userID;
   }
   loadUsers(search: string): void {
     this.userService.getUsers(search).subscribe((data: User[]) => {
@@ -105,6 +110,8 @@ export class ServiceRequestComponent implements OnInit {
     // this.router.navigate(['/service-request-edit', id]);
     // this.serviceRequest=this.serviceRequests.find(res=> res.serviceID==id);
     this.serviceRequest = this.serviceRequests.filter(res => res.serviceID == id)[0];
+    this.selectedClient = this.serviceRequest.client; // Pre-fill with existing client data
+    // this.serviceRequest.client =this.serviceRequest.client; 
     this.editPage = true;
     this.viewPage = false;
     this.title = "Edit";
@@ -121,9 +128,9 @@ export class ServiceRequestComponent implements OnInit {
 
   deleteRequest(id: number): void {
     if (confirm('Are you sure you want to delete this request?')) {
-      // this.serviceRequestService.deleteServiceRequest(id).subscribe(() => {
-      //   this.loadServiceRequests();
-      // });
+      this.serviceRequestService.deleteServiceRequest(id).subscribe(() => {
+        this.loadServiceRequests();
+      });
     }
   }
 

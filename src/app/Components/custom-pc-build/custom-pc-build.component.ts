@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomPCBuild } from 'src/app/Models/custom-pc-build.model';
+import { User } from 'src/app/Models/user.model';
 import { CustomPCBuildService } from 'src/app/Services/custom-pcbuild.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-custom-pc-build',
@@ -11,30 +12,85 @@ import { CustomPCBuildService } from 'src/app/Services/custom-pcbuild.service';
 })
 export class CustomPcBuildComponent implements OnInit {
   buildList: CustomPCBuild[] = [];
-  buildForm: FormGroup;
   editPage: boolean = false;
   viewPage: boolean = true;
   currentBuildId: number | null = null;
 
+  customBuild: CustomPCBuild = new CustomPCBuild();
+  clientsList: User[] = [];
+  techExpertsList: User[] = [];
+  adminsList: User[] = [];
+  userList: User[] = [];
+
+  selectedClient: User | null = null;
+  selectedTechExpert: User | null = null;
+  selectedAdmin: User | null = null;
+
   constructor(
-    private fb: FormBuilder,
     private buildService: CustomPCBuildService,
-    private router: Router
-  ) {
-    this.buildForm = this.fb.group({
-      buildType: ['', [Validators.required]],
-      budget: ['', [Validators.required]],
-      buildStatus: ['', [Validators.required]],
-      clientID: ['', [Validators.required]],
-      techExpertID: ['', [Validators.required]],
-      adminID: ['', [Validators.required]]
-    });
-  }
+    private router: Router,
+    private userService: UserService // Inject user service
+  ) { }
 
   ngOnInit(): void {
+    this.loadUsers(''); // Load users initially
     this.loadBuilds();
   }
 
+
+  loadUsers(search: string): void {
+    this.userService.getUsers(search).subscribe((data: User[]) => {
+      this.userList = data;
+      this.getClientList();
+      this.getTechExpertList();
+      this.getAdminList(); // Load admins
+    },
+      error => {
+        console.error('Error fetching users', error);
+      });
+  }
+
+  getClientList() {
+    this.clientsList = this.userList.filter(user => user.role === 'client');
+  }
+
+  getTechExpertList() {
+    this.techExpertsList = this.userList.filter(user => user.role === 'techExpert');
+  }
+
+  getAdminList() {
+    this.adminsList = this.userList.filter(user => user.role === 'admin');
+  }
+
+  selectClient(event: User) {
+    this.selectedClient = event;
+    if (this.customBuild.client != null) {
+      this.customBuild.client.userID = this.selectedClient?.userID; // Update customBuild directly
+    } else {
+      this.customBuild.client = new User();
+      this.customBuild.client.userID = this.selectedClient?.userID;
+    }
+  }
+
+  selectTechExpert(event: User) {
+    this.selectedTechExpert = event;
+    if (this.customBuild.techExpert !== null) {
+      this.customBuild.techExpert.userID = this.selectedClient?.userID; // Update customBuild directly
+    } else {
+      this.customBuild.techExpert = new User();
+      this.customBuild.techExpert.userID = this.selectedTechExpert?.userID; // Update customBuild directly
+    }
+  }
+
+  selectAdmin(event: User) {
+    this.selectedAdmin = event;
+    if (this.customBuild.admin !== null) {
+      this.customBuild.admin.userID = this.selectedClient?.userID; // Update customBuild directly
+    } else {
+      this.customBuild.admin = new User();
+      this.customBuild.admin.userID = this.selectedAdmin?.userID; // Update customBuild directly
+    }
+  }
   loadBuilds(): void {
     this.buildService.getBuilds().subscribe(
       (data: CustomPCBuild[]) => {
@@ -47,23 +103,28 @@ export class CustomPcBuildComponent implements OnInit {
   }
 
   openEditPage(id: number): void {
+    // this.loadBuild(id);
+    this.customBuild = this.buildList[id - 1];
+    this.selectedAdmin = this.buildList[id - 1].admin;
+    this.selectedTechExpert = this.buildList[id - 1].techExpert;
+    this.selectedClient = this.buildList[id - 1].client;
+
     this.currentBuildId = id;
     this.editPage = true;
     this.viewPage = false;
-    this.loadBuild(id);
   }
 
   openAddPage(): void {
     this.currentBuildId = null;
     this.editPage = true;
     this.viewPage = false;
-    this.buildForm.reset();
+    this.customBuild = new CustomPCBuild(); // Reset the customBuild
   }
 
   loadBuild(id: number): void {
     this.buildService.getBuild(id).subscribe(
       (build: CustomPCBuild) => {
-        this.buildForm.patchValue(build);
+        this.customBuild = { ...build }; // Load the build details
       },
       error => {
         console.error('Error fetching build', error);
@@ -85,10 +146,9 @@ export class CustomPcBuildComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.buildForm.valid) {
-      const build = this.buildForm.value as CustomPCBuild;
+    if (this.validateCustomBuild(this.customBuild)) {
       if (this.currentBuildId) {
-        this.buildService.updateBuild(this.currentBuildId, build).subscribe(
+        this.buildService.updateBuild(this.currentBuildId, this.customBuild).subscribe(
           () => {
             this.loadBuilds();
             this.viewPage = true;
@@ -99,7 +159,7 @@ export class CustomPcBuildComponent implements OnInit {
           }
         );
       } else {
-        this.buildService.createBuild(build).subscribe(
+        this.buildService.createBuild(this.customBuild).subscribe(
           () => {
             this.loadBuilds();
             this.viewPage = true;
@@ -110,19 +170,49 @@ export class CustomPcBuildComponent implements OnInit {
           }
         );
       }
+    } else {
+      alert('Please fill in all required fields.');
     }
   }
+
+  validateCustomBuild(build: CustomPCBuild): boolean {
+    return (
+      build.buildType !== '' &&
+      build.budget !== null &&
+      build.budget !== undefined &&
+      build.buildStatus !== ''
+      // build.clientID !== null &&
+      // build.clientID !== undefined &&
+      // build.techExpertID !== null &&
+      // build.techExpertID !== undefined &&
+      // build.adminID !== null &&
+      // build.adminID !== undefined
+    );
+  }
+
+
   getStatusClass(status: string): string {
     switch (status) {
-      // closed,	in-progress,open
-      case 'Completed': return 'green white-text';
-      case 'In Progress': return 'orange white-text';
-      case 'Pending': return 'grey white-text';
-      case 'Cancelled': return 'red white-text';
-      case 'closed': return 'green white-text';
-      case 'in-progress': return 'orange white-text';
-      case 'open': return 'grey white-text';
-      default: return 'blue white-text';
+      case 'Completed':
+      case 'closed':
+        return 'green white-text';
+      case 'In Progress':
+      case 'in-progress':
+        return 'orange white-text';
+      case 'Pending':
+      case 'open':
+        return 'grey white-text';
+      case 'Cancelled':
+        return 'red white-text';
+      default:
+        return 'blue white-text';
     }
+  }
+
+  cancelForm(): void {
+    this.currentBuildId = null;
+    this.editPage = false;
+    this.viewPage = true;
+    this.customBuild = new CustomPCBuild(); // Reset the customBuild
   }
 }

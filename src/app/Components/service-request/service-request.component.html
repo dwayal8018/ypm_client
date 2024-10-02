@@ -23,8 +23,8 @@
         </td>
         <td>{{ request.type }}</td>
         <td>{{ request.priority }}</td>
-        <td>{{ request.clientID }}</td>
-        <td>{{ request.techExpertID }}</td>
+        <td>{{ request.client?.username }}</td>
+        <td>{{ request.techExpert?.username }}</td>
         <td class="action-btn">
           <a class="btn waves-effect waves-light orange" (click)="openEditPage(request.serviceID)">Edit</a>
           <a class="btn waves-effect waves-light red" (click)="deleteRequest(request.serviceID)">Delete</a>
@@ -36,7 +36,7 @@
 
 <div class="container" *ngIf="editPage">
   <h2 class="center-align">{{title}} Service Request</h2>
-  <form (ngSubmit)="saveRequest()" #serviceRequestForm="ngForm">
+  <form (ngSubmit)="saveRequest()"  #serviceRequestForm="ngForm">
     <!-- <div class="input-field">
       <input type="text" id="serviceReqDate" [(ngModel)]="serviceRequest.serviceReqDate" name="serviceReqDate"
         required />
@@ -56,23 +56,24 @@
       <label for="priority"  [ngClass]="{ 'active': serviceRequest.priority }">Priority</label>
     </div>
     <div class="input-field">
-      <select id="clientID"  name="clientID" [(ngModel)]="serviceRequest.clientID" required (change)="selectClient($event)">
+      <select id="clientID"  name="clientID" [(ngModel)]="selectedClient" required (ngModelChange)="selectClient($event)">
         <option value="" disabled selected>Select Client</option>
-        <option *ngFor="let client of clientsList" [value]="client.userID">{{  client.username }}</option>
+        <option *ngFor="let client of clientsList" [ngValue]="client">{{  client.username }}</option>
         <!-- client.prefferedName || -->
       </select>
-      <label for="clientID" [ngClass]="{ 'active': serviceRequest.clientID }">Client ID</label>
+      <label for="clientID" [ngClass]="{ 'active': selectedClient }">Client ID</label>
     </div>
 
     <!-- {{clientsList|json}} -->
     <div class="input-field">
-      <select id="techExpertID" name="techExpertID" [(ngModel)]="serviceRequest.techExpertID" required (change)="selectTechExpert($event)" >
+      <select id="techExpertID" name="techExpertID" [(ngModel)]="selectedTechExpert" required (ngModelChange)="selectTechExpert($event)" >
         <option value="" disabled selected>Select Tech Expert</option>
-        <option *ngFor="let techExpert of techExpertsList" [value]="techExpert.userID">{{  techExpert.username }}</option>
+        <option *ngFor="let techExpert of techExpertsList" [ngValue]="techExpert">{{  techExpert.username }}</option>
         <!-- techExpert.prefferedName || -->
       </select>
-      <label for="techExpertID" [ngClass]="{ 'active': serviceRequest.techExpertID }">Tech Expert ID</label>
+      <label for="techExpertID" [ngClass]="{ 'active': selectedTechExpert }">Tech Expert ID</label>
     </div>    
     <button class="btn waves-effect waves-light" type="submit">Save</button>
+    <button class="btn waves-effect waves-light" (click)="openAddPage()" type="cancel">Cancel</button>
   </form>
 </div>

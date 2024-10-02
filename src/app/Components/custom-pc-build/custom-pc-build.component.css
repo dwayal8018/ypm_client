@@ -8,6 +8,8 @@
 
 .btn {
   margin-top: 20px;
+  width: fit-content !important;
+  margin-right: 2px !important;
 }
 
 .text-danger {
@@ -16,4 +18,51 @@
 
 .action-btn .btn {
   margin-right: 5px;
+}
+
+/* Select element styles */
+select {
+  display: inline-block;
+  border: none; /* Remove the border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px 15px; /* Add padding for better touch targets */
+  font-size: 16px; /* Increased font size */
+  color: #333; /* Dark text color for readability */
+  background-color: #fff; /* White background for consistency */
+  appearance: none; /* Remove default dropdown arrow */
+  cursor: pointer; /* Pointer cursor for better UX */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+/* Custom dropdown arrow */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper:after {
+  /* content: '▼'; Custom arrow */
+  position: absolute;
+  right: 10px; /* Positioning */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for centering */
+  pointer-events: none; /* Prevent interaction */
+}
+
+/* Add focus styles */
+select:focus {
+  outline: none; /* Remove default outline */
+  background-color: #f4f5f5; /* Light blue background on focus for clarity */
+}
+
+/* Styling for the label */
+label {
+  font-size: 14px; /* Adjust label font size */
+  color: #555; /* Slightly lighter color for labels */
+  margin-bottom: 5px; /* Space between label and select */
+  display: block; /* Ensure label takes up full width */
+}
+
+/* Style for disabled options */
+option:disabled {
+  color: #ccc; /* Light gray for disabled options */
 }

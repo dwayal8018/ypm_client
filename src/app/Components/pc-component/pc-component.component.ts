@@ -11,22 +11,18 @@ import { PCComponentService } from 'src/app/Services/pc-component.service';
 })
 export class PcComponentComponent implements OnInit {
   componentList: PCComponent[] = [];
-  componentForm: FormGroup;
+  // componentForm: FormGroup;
   editPage: boolean = false;
   viewPage: boolean = true;
   currentComponentId: number | null = null;
+
+  component: PCComponent = new PCComponent();
 
   constructor(
     private fb: FormBuilder,
     private componentService: PCComponentService,
     private router: Router
   ) {
-    this.componentForm = this.fb.group({
-      componentName: ['', [Validators.required]],
-      componentModel: ['', [Validators.required]],
-      componentType: ['', [Validators.required]],
-      price: ['', [Validators.required]]
-    });
   }
 
   ngOnInit(): void {
@@ -37,8 +33,7 @@ export class PcComponentComponent implements OnInit {
     // this.componentService.getComponents().subscribe(data => {
     //   this.pcComponents = data;
     // });
-    this.componentService.getComponents().subscribe(
-      (data: PCComponent[]) => {
+    this.componentService.getComponents().subscribe((data: PCComponent[]) => {
         this.componentList = data;
       },
       error => {
@@ -58,18 +53,17 @@ export class PcComponentComponent implements OnInit {
     this.currentComponentId = null;
     this.editPage = true;
     this.viewPage = false;
-    this.componentForm.reset();
+    // this.componentForm.reset();
   }
 
+  cancelPage(){
+    this.editPage = false;
+    this.viewPage = true;
+  }
   loadComponent(id: number): void {
-    this.componentService.getComponent(id).subscribe(
-      (component: PCComponent) => {
-        this.componentForm.patchValue(component);
-      },
-      error => {
-        console.error('Error fetching component', error);
-      }
-    );
+    this.componentService.getComponent(id).subscribe(data => {
+      this.component = data;
+    });
   }
 
   deleteComponent(id: number): void {
@@ -86,10 +80,10 @@ export class PcComponentComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.componentForm.valid) {
-      const component = this.componentForm.value as PCComponent;
+    // if (this.componentForm.valid) {
+      // const component = this.componentForm.value as PCComponent;
       if (this.currentComponentId) {
-        this.componentService.updateComponent(this.currentComponentId, component).subscribe(
+        this.componentService.updateComponent(this.currentComponentId, this.component).subscribe(
           () => {
             this.loadComponents();
             this.viewPage = true;
@@ -100,7 +94,7 @@ export class PcComponentComponent implements OnInit {
           }
         );
       } else {
-        this.componentService.createComponent(component).subscribe(
+        this.componentService.createComponent(this.component).subscribe(
           () => {
             this.loadComponents();
             this.viewPage = true;
@@ -111,6 +105,6 @@ export class PcComponentComponent implements OnInit {
           }
         );
       }
-    }
+    // }
   }
 }
