@@ -1,5 +1,5 @@
 export class User {
-    userID: number|null|undefined;
+    userID: number;
     username: string;
     prefferedName: string
     password: string;
@@ -8,7 +8,7 @@ export class User {
     address: string;
     role: string;
     constructor() {
-        this.userID= null;
+        this.userID= 0;
         this.username= "";
         this.prefferedName= ""
         this.password= "";

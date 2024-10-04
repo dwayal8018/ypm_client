@@ -17,23 +17,21 @@ export class UserComponent implements OnInit {
   };
 
   userList: User[] = [];
-  userForm: FormGroup;
   editPage: boolean = false;
   viewPage: boolean = false;
+  newUser: User = new User();
+  isEdit: boolean = false;
+  usernameTouched = false;
+  passwordTouched = false;
+  emailTouched = false;
+  phoneNumberTouched = false;
+  addressTouched = false;
+  roleTouched = false;
 
   constructor(
-    private fb: FormBuilder,
     private userService: UserService,
     private router: Router
   ) {
-    this.userForm = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      role: ['', [Validators.required]]
-    });
 
     this.viewPage = true;
   }
@@ -43,24 +41,25 @@ export class UserComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.editPage = false;
-          this.viewPage = true;
-    // if (this.userForm.valid) {
-    //   this.userService.createUser(this.userForm.value).subscribe(
-    //     (user: User) => {
-    //       console.log('User created successfully', user);
-    //       this.loadUsers();
-    //       // this.router.navigate(['/user-list']);
-    //       this.editPage = false;
-    //       this.viewPage = true;
-    //     },
-    //     error => {
-    //       console.error('Error creating user', error);
-    //       this.editPage = true;
-    //       this.viewPage = false;
-    //     }
-    //   );
-    // }
+    // this.editPage = false;
+    // this.viewPage = true;
+
+
+    this.userService.createUser(this.newUser).subscribe(
+      (user: User) => {
+        console.log('User created successfully', user);
+        this.loadUsers();
+        // this.router.navigate(['/user-list']);
+        this.editPage = false;
+        this.viewPage = true;
+      },
+      error => {
+        console.error('Error creating user', error);
+        this.editPage = true;
+        this.viewPage = false;
+      }
+    );
+
   }
 
   loadUsers(): void {
@@ -86,13 +85,26 @@ export class UserComponent implements OnInit {
       );
     }
   }
-  editUser(id: number) {
+
+  openEditPage(id: number) {
+    this.newUser = this.userList[id];
+    this.isEdit = true;
     this.editPage = true;
     this.viewPage = false;
   }
 
-  openAddPage(){
+  openAddPage() {
+    this.newUser = new User();
+    this.isEdit = false;
     this.editPage = true;
     this.viewPage = false;
+  }
+
+ 
+
+  cancelForm() {
+    this.newUser = new User();
+    this.editPage = false;
+    this.viewPage = true;
   }
 }

@@ -1,4 +1,4 @@
-<div class="container" *ngIf="viewPage">
+<div class="" *ngIf="viewPage">
   <h2 class="center-align">Service Requests</h2>
   <a class="btn waves-effect waves-light green" (click)="openAddPage()">Add Service Request</a>
   <table class="striped">
@@ -15,11 +15,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let request of serviceRequests">
+      <tr *ngFor="let request of serviceRequests; let idx = index">
         <td>{{ request.serviceID }}</td>
-        <td>{{ request.serviceReqDate }}</td>
-        <td>
-          <span [ngClass]="getStatusClass(request.serviceReqStatus)" class="badge">{{ request.serviceReqStatus }}</span>
+        <td>{{ request.serviceReqDate | date: 'shortDate' }}</td>
+        <td class="center-align">
+          <span [ngClass]="getStatusClass(request.serviceReqStatus) " class="badge ">{{ request.serviceReqStatus }}</span>
         </td>
         <td>{{ request.type }}</td>
         <td>{{ request.priority }}</td>
@@ -35,45 +35,35 @@
 </div>
 
 <div class="container" *ngIf="editPage">
-  <h2 class="center-align">{{title}} Service Request</h2>
-  <form (ngSubmit)="saveRequest()"  #serviceRequestForm="ngForm">
-    <!-- <div class="input-field">
-      <input type="text" id="serviceReqDate" [(ngModel)]="serviceRequest.serviceReqDate" name="serviceReqDate"
-        required />
-      <label for="serviceReqDate">Request Date</label>
-    </div> -->
+  <h2 class="center-align">{{ title }} Service Request</h2>
+  <form (ngSubmit)="saveRequest()" #serviceRequestForm="ngForm">
     <div class="input-field">
-      <input type="text" id="serviceReqStatus" [(ngModel)]="serviceRequest.serviceReqStatus" name="serviceReqStatus"
-        required />
-      <label for="serviceReqStatus"  [ngClass]="{ 'active': serviceRequest.serviceReqStatus }">Status</label>
+      <input type="text" id="serviceReqStatus" [(ngModel)]="serviceRequest.serviceReqStatus" name="serviceReqStatus" required />
+      <label for="serviceReqStatus" [ngClass]="{ 'active': serviceRequest.serviceReqStatus }">Status</label>
     </div>
     <div class="input-field">
       <input type="text" id="type" [(ngModel)]="serviceRequest.type" name="type" required />
-      <label for="type"  [ngClass]="{ 'active': serviceRequest.type }">Type</label>
+      <label for="type" [ngClass]="{ 'active': serviceRequest.type }">Type</label>
     </div>
     <div class="input-field">
       <input type="text" id="priority" [(ngModel)]="serviceRequest.priority" name="priority" required />
-      <label for="priority"  [ngClass]="{ 'active': serviceRequest.priority }">Priority</label>
+      <label for="priority" [ngClass]="{ 'active': serviceRequest.priority }">Priority</label>
     </div>
     <div class="input-field">
-      <select id="clientID"  name="clientID" [(ngModel)]="selectedClient" required (ngModelChange)="selectClient($event)">
+      <select id="clientID" name="clientID" [(ngModel)]="selectedClient" required (ngModelChange)="selectClient($event)">
         <option value="" disabled selected>Select Client</option>
-        <option *ngFor="let client of clientsList" [ngValue]="client">{{  client.username }}</option>
-        <!-- client.prefferedName || -->
+        <option *ngFor="let client of clientsList" [ngValue]="client">{{ client.username }}</option>
       </select>
       <label for="clientID" [ngClass]="{ 'active': selectedClient }">Client ID</label>
     </div>
-
-    <!-- {{clientsList|json}} -->
     <div class="input-field">
-      <select id="techExpertID" name="techExpertID" [(ngModel)]="selectedTechExpert" required (ngModelChange)="selectTechExpert($event)" >
+      <select id="techExpertID" name="techExpertID" [(ngModel)]="selectedTechExpert" required (ngModelChange)="selectTechExpert($event)">
         <option value="" disabled selected>Select Tech Expert</option>
-        <option *ngFor="let techExpert of techExpertsList" [ngValue]="techExpert">{{  techExpert.username }}</option>
-        <!-- techExpert.prefferedName || -->
+        <option *ngFor="let techExpert of techExpertsList" [ngValue]="techExpert">{{ techExpert.username }}</option>
       </select>
       <label for="techExpertID" [ngClass]="{ 'active': selectedTechExpert }">Tech Expert ID</label>
-    </div>    
-    <button class="btn waves-effect waves-light" type="submit">Save</button>
-    <button class="btn waves-effect waves-light" (click)="openAddPage()" type="cancel">Cancel</button>
+    </div>
+    <button class="btn waves-effect waves-light green" type="submit">Save</button>
+    <button class="btn waves-effect waves-light red" (click)="cancel()" type="button">Cancel</button>
   </form>
 </div>

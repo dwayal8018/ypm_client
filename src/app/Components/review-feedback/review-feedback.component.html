@@ -1,7 +1,35 @@
-<div class="review-feedback-container">
+<div class="review-feedback">
   <h2>Review Feedback</h2>
-  <p>ID: {{reviewFeedback.reviewID}}</p>
-  <p>Rating: {{reviewFeedback.reviewRating}}</p>
-  <p>Feedback: {{reviewFeedback.feedback}}</p>
-  <!-- Add more fields as needed -->
+
+  <div class="filters">
+    <input type="text" placeholder="Search feedback..." (input)="onSearch($event)" />
+    <select (change)="onFilterChange($event)">
+      <option value="">All</option>
+      <option value="positive">Positive</option>
+      <option value="neutral">Neutral</option>
+      <option value="negative">Negative</option>
+    </select>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Feedback</th>
+        <th>Rating</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let review of filteredReviews">
+        <td>{{ review.user }}</td>
+        <td>{{ review.comment }}</td>
+        <!-- <td>{{ review.rating }}</td> -->
+        <td>
+          <button (click)="respondToFeedback(review)">Respond</button>
+          <button (click)="deleteFeedback(review.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

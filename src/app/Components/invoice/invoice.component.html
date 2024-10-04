@@ -1,7 +1,70 @@
 <div class="invoice-container">
-    <h2>Invoice Details</h2>
-    <p>ID: {{invoice.invoiceID}}</p>
-    <p>Total Price: {{invoice.totalPrice | currency}}</p>
-    <!-- Add more fields as needed -->
+  <!-- Invoice Header -->
+  <div class="invoice-header">
+    <div class="company-details">
+      <h2>Your PC Mentor</h2>
+      <p>123 Tech Street, Innovation City</p>
+      <p>Email: support@yourpcmentor.com</p>
+    </div>
+    <div class="invoice-details">
+      <h3>Invoice #{{ invoiceNumber }}</h3>
+      <p><strong>Date:</strong> {{ invoiceDate }}</p>
+      <p><strong>Due Date:</strong> {{ dueDate }}</p>
+    </div>
   </div>
-  
+
+  <!-- Customer Information -->
+  <div class="customer-info">
+    <p><strong>Invoice to:</strong> {{ customerName }}</p>
+    <p>{{ customerAddress }}</p>
+    <p>{{ customerEmail }}</p>
+  </div>
+
+  <!-- Itemized List -->
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of invoiceItems">
+        <td>{{ item.description }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.unitPrice | currency }}</td>
+        <td>{{ item.total | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Invoice Summary -->
+  <div class="invoice-summary">
+    <p><strong>Subtotal:</strong> {{ subtotal | currency }}</p>
+    <p><strong>Tax ({{ taxRate }}%):</strong> {{ tax | currency }}</p>
+    <p><strong>Discount:</strong> -{{ discount | currency }}</p>
+    <p><strong>Total:</strong> {{ total | currency }}</p>
+  </div>
+
+  <!-- Payment Section -->
+  <div class="payment-section">
+    <p><strong>Status:</strong> {{ paymentStatus }}</p>
+    <p><strong>Payment Method:</strong> {{ paymentMethod }}</p>
+    <button *ngIf="paymentStatus === 'Unpaid'" (click)="payInvoice()">Pay Now</button>
+  </div>
+
+  <!-- Invoice Actions -->
+  <div class="invoice-actions">
+    <button (click)="printInvoice()">Print</button>
+    <button (click)="downloadInvoicePDF()">Download PDF</button>
+    <button (click)="emailInvoice()">Email Invoice</button>
+  </div>
+
+  <!-- Footer -->
+  <div class="invoice-footer">
+    <p>Thank you for your business!</p>
+    <p>If you have any questions about this invoice, contact us at support@yourpcmentor.com</p>
+  </div>
+</div>

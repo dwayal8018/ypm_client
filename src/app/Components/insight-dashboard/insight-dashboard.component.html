@@ -1,0 +1,74 @@
+<div class="dashboard-container">
+  <h1>Admin Dashboard Overview</h1>
+
+  <!-- Key Metrics in Cards -->
+  <div class="dashboard-metrics">
+    <div class="metric-card white-text" style="background-color:darkslategray;">
+      <h3 class="white-text">Total Users</h3>
+      <p>100</p>
+    </div>
+    <div class="metric-card white-text" style="background-color:deeppink;">
+      <h3 class="white-text">Pending Orders</h3>
+      <p>30</p>
+    </div>
+    <div class="metric-card white-text" style="background-color:gold;">
+      <h3 class="white-text">Completed Orders</h3>
+      <p>500</p>
+    </div>
+    <div class="metric-card white-text" style="background-color:lightcoral;">
+      <h3 class="white-text">New Users This Month</h3>
+      <p>15</p>
+    </div>
+    <div class="metric-card white-text" style="background-color:cadetblue;">
+      <h3 class="white-text">Total Services Completed</h3>
+      <p>85</p>
+    </div>
+  </div>
+
+  <!-- Graphs for Visual Data Insights -->
+  <div class="charts-container">
+    <!-- Total Inventory Stock & Low Stock Items Bar Chart -->
+    <div class="chart">
+      <h3>Inventory Insights</h3>
+      <canvas id="inventoryChart"></canvas>
+    </div>
+
+    <!-- Revenue & Cancellations Bar Chart -->
+    <div class="chart">
+      <h3>Order and Revenue Insights</h3>
+      <canvas id="orderRevenueChart"></canvas>
+    </div>
+
+    <!-- Average Completion Times Line Chart -->
+    <div class="chart">
+      <h3>Average Fulfillment Times</h3>
+      <canvas id="fulfillmentTimeChart"></canvas>
+    </div>
+
+    <!-- User Satisfaction Pie Chart -->
+    <div class="chart">
+      <h3>User Satisfaction Score</h3>
+      <canvas id="satisfactionChart" width="400" height="400"></canvas> 
+    </div>
+  </div>
+
+  <!-- Recent Feedback Section -->
+  <div class="recent-feedback">
+    <h3>Recent Feedback</h3>
+    <ul>
+      <li>
+        <blockquote>"Great service!"</blockquote>
+        <cite>- User 1</cite>
+      </li>
+      <li>
+        <blockquote>"Fast delivery."</blockquote>
+        <cite>- User 2</cite>
+      </li>
+      <li>
+        <blockquote>"Highly recommended."</blockquote>
+        <cite>- User 3</cite>
+      </li>
+    </ul>
+  </div>
+  
+</div>

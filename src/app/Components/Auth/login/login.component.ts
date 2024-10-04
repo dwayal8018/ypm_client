@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router'; // Import Router
 import { AuthService } from 'src/app/Services/auth.service';
-import { UserService } from 'src/app/Services/user.service';
+// import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,34 +9,45 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  loginForm: FormGroup;
+  loginForm:any ;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+  constructor( private authService: AuthService, private router: Router) {
+    this.loginForm = {
+      username: "",
+      password: ""
+    };
   }
 
   onSubmit(): void {
-    debugger;
-    alert("login");
-    if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe(
-        response => {
-          debugger;
-          // Handle successful login
-          localStorage.setItem('token', response.token); // Store JWT token
+      this.authService.login(this.loginForm).subscribe(
+        (response: any) => {
+          console.log(response.userRole); // Access the user role
           localStorage.setItem('userRole', response.role); // Ensure your backend returns the user's role
+          localStorage.setItem('userID', response.userID); // Ensure your backend returns the user's role
+          localStorage.setItem('username', response.username); // Ensure your backend returns the user's role
+          
+          // if("admin" === localStorage.getItem('userRole'))
           this.router.navigate(['/dashboard']); // Redirect to the dashboard
+          // else
+          // this.router.navigate(['/dashboard/service-requests']); 
           alert("login successful");
         },
         error => {
-          debugger;
-          console.log('Login failed', error);
-          alert("login failed");
+          if (error.status === 404) {
+            console.error('Error:', error.error.error); // Log the error message
+          } else {
+            console.error('Unexpected error:', error);
+          }
         }
       );
+      
+  }
+
+  isUndefinedOrNullOrEmpty(obj:any) {
+    if (obj == undefined || obj == null || obj == '' || obj == ' ') {
+      return true;
+    } else {
+      return false;
     }
   }
 }

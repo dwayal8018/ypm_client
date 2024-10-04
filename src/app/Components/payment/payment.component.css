@@ -1,19 +1,24 @@
-.payment-container {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .payment-container h2 {
-    color: #232f3e;
-    font-family: Arial, sans-serif;
-  }
-  
-  .payment-container p {
-    color: #555;
-    font-family: Arial, sans-serif;
-  }
-  
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2.center-align {
+  text-align: center;
+}
+
+.input-field {
+  margin-bottom: 20px;
+}
+
+select, input[type="date"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+button {
+  margin-right: 10px;
+}

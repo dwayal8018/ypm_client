@@ -12,8 +12,8 @@ export class ServiceRequestService {
 
   constructor(private http: HttpClient) { }
   
-  getAllServiceRequests() {
-    return this.http.get<any>(this.apiUrl);
+  getAllServiceRequests(userRole:any,userID:any) {
+    return this.http.get<any>(this.apiUrl+"?userRole="+userRole+"&userID="+userID);
   }
 
   createServiceRequest(serviceRequestBody:any){

@@ -1,7 +1,39 @@
-<div class="payment-container">
-    <h2>Payment Details</h2>
-    <p>ID: {{payment.paymentID}}</p>
-    <p>Amount: {{payment.amount | currency}}</p>
-    <!-- Add more fields as needed -->
-  </div>
-  
+<div class="container">
+  <h2 class="center-align">Payment Details</h2>
+
+  <!-- Payment Form -->
+  <form (ngSubmit)="onSubmit()" *ngIf="paymentForm">
+    
+    <!-- Payment Method -->
+    <div class="input-field">
+      <label for="paymentMethod" class="active">Payment Method</label>
+      <select id="paymentMethod" [(ngModel)]="payment.paymentMethod" name="paymentMethod">
+        <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+      </select>
+    </div>
+
+    <!-- Payment Status -->
+    <div class="input-field">
+      <label for="paymentStatus" class="active">Payment Status</label>
+      <select id="paymentStatus" [(ngModel)]="payment.paymentStatus" name="paymentStatus">
+        <option *ngFor="let status of paymentStatuses" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+
+    <!-- Payment Date -->
+    <div class="input-field">
+      <label for="paymentDate" class="active">Payment Date</label>
+      <input type="date" id="paymentDate" [(ngModel)]="payment.paymentDate" name="paymentDate" />
+    </div>
+
+    <!-- Order ID -->
+    <div class="input-field">
+      <label for="orderID" class="active">Order ID</label>
+      <input type="text" id="orderID" [(ngModel)]="payment.order.id" name="orderID" readonly />
+    </div>
+
+    <!-- Save and Cancel Buttons -->
+    <button class="btn waves-effect waves-light" type="submit">Save Payment</button>
+    <button class="btn waves-effect waves-light red" type="button" (click)="cancel()">Cancel</button>
+  </form>
+</div>

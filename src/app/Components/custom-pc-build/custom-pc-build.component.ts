@@ -62,37 +62,26 @@ export class CustomPcBuildComponent implements OnInit {
     this.adminsList = this.userList.filter(user => user.role === 'admin');
   }
 
-  selectClient(event: User) {
+  selectClient(event:User) {
     this.selectedClient = event;
-    if (this.customBuild.client != null) {
-      this.customBuild.client.userID = this.selectedClient?.userID; // Update customBuild directly
-    } else {
       this.customBuild.client = new User();
       this.customBuild.client.userID = this.selectedClient?.userID;
-    }
+    
   }
 
   selectTechExpert(event: User) {
     this.selectedTechExpert = event;
-    if (this.customBuild.techExpert !== null) {
-      this.customBuild.techExpert.userID = this.selectedClient?.userID; // Update customBuild directly
-    } else {
-      this.customBuild.techExpert = new User();
-      this.customBuild.techExpert.userID = this.selectedTechExpert?.userID; // Update customBuild directly
-    }
+    this.customBuild.techExpert = new User();
+    this.customBuild.techExpert.userID = this.selectedTechExpert?.userID; // Update customBuild directly
   }
 
   selectAdmin(event: User) {
     this.selectedAdmin = event;
-    if (this.customBuild.admin !== null) {
-      this.customBuild.admin.userID = this.selectedClient?.userID; // Update customBuild directly
-    } else {
-      this.customBuild.admin = new User();
-      this.customBuild.admin.userID = this.selectedAdmin?.userID; // Update customBuild directly
-    }
+    this.customBuild.admin = new User();
+    this.customBuild.admin.userID = this.selectedAdmin?.userID; // Update customBuild directly
   }
   loadBuilds(): void {
-    this.buildService.getBuilds().subscribe(
+    this.buildService.getBuilds(localStorage.getItem('userRole'),localStorage.getItem('userID')).subscribe(
       (data: CustomPCBuild[]) => {
         this.buildList = data;
       },
@@ -103,11 +92,10 @@ export class CustomPcBuildComponent implements OnInit {
   }
 
   openEditPage(id: number): void {
-    // this.loadBuild(id);
-    this.customBuild = this.buildList[id - 1];
-    this.selectedAdmin = this.buildList[id - 1].admin;
-    this.selectedTechExpert = this.buildList[id - 1].techExpert;
-    this.selectedClient = this.buildList[id - 1].client;
+    this.customBuild = this.buildList[id];
+    this.selectedAdmin = this.buildList[id].admin;
+    this.selectedTechExpert = this.buildList[id].techExpert;
+    this.selectedClient = this.buildList[id].client;
 
     this.currentBuildId = id;
     this.editPage = true;
@@ -121,16 +109,16 @@ export class CustomPcBuildComponent implements OnInit {
     this.customBuild = new CustomPCBuild(); // Reset the customBuild
   }
 
-  loadBuild(id: number): void {
-    this.buildService.getBuild(id).subscribe(
-      (build: CustomPCBuild) => {
-        this.customBuild = { ...build }; // Load the build details
-      },
-      error => {
-        console.error('Error fetching build', error);
-      }
-    );
-  }
+  // loadBuild(id: number): void {
+  //   this.buildService.getBuild(id).subscribe(
+  //     (build: CustomPCBuild) => {
+  //       this.customBuild = { ...build }; // Load the build details
+  //     },
+  //     error => {
+  //       console.error('Error fetching build', error);
+  //     }
+  //   );
+  // }
 
   deleteBuild(id: number): void {
     if (confirm('Are you sure you want to delete this build?')) {

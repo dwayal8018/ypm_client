@@ -1,19 +1,71 @@
 .invoice-container {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .invoice-container h2 {
-    color: #232f3e;
-    font-family: Arial, sans-serif;
-  }
-  
-  .invoice-container p {
-    color: #555;
-    font-family: Arial, sans-serif;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+}
+
+.invoice-header, .customer-info, .invoice-summary, .payment-section, .invoice-footer {
+  margin-bottom: 20px;
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.company-details h2 {
+  margin: 0;
+}
+
+.invoice-details h3 {
+  margin: 0;
+  color: #ff5722;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoice-table th, .invoice-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.invoice-table th {
+  background-color: #f9f9f9;
+}
+
+.invoice-summary {
+  text-align: right;
+}
+
+.payment-section {
+  text-align: left;
+}
+
+.invoice-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e64a19;
+}
+
+.invoice-footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+}

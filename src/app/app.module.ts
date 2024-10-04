@@ -19,6 +19,8 @@ import { RegisterComponent } from './Components/Auth/register/register.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { AuthInterceptor } from './Interceptors/auth.interceptor';
+import { InsightDashboardComponent } from './Components/insight-dashboard/insight-dashboard.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -35,14 +37,16 @@ import { AuthInterceptor } from './Interceptors/auth.interceptor';
     ReviewFeedbackComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    InsightDashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

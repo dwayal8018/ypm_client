@@ -49,7 +49,10 @@ export class ServiceRequestComponent implements OnInit {
     private userService: UserService,
     private cdr: ChangeDetectorRef
     // private router: Router
-  ) { }
+  ) { 
+
+
+  }
 
   ngOnInit(): void {
     this.viewPage = true;
@@ -60,16 +63,9 @@ export class ServiceRequestComponent implements OnInit {
   ngAfterViewInit() {
     const elems = document.querySelectorAll('select');
     M.FormSelect.init(elems);  // Initialize MaterializeCSS select
-    // if (this.serviceRequest.clientID) {
-    //   document.querySelector('label[for="clientID"]')?.classList.add('active');
-    // }
-  
-    // if (this.serviceRequest.techExpertID) {
-    //   document.querySelector('label[for="techExpertID"]')?.classList.add('active');
-    // }
   }
   loadServiceRequests(): void {
-    this.serviceRequestService.getAllServiceRequests().subscribe(data => {
+    this.serviceRequestService.getAllServiceRequests(localStorage.getItem('userRole'),localStorage.getItem('userID')).subscribe(data => {
       this.serviceRequests = data;
     });
   }
@@ -125,7 +121,10 @@ export class ServiceRequestComponent implements OnInit {
 
     // this.router.navigate(['/service-request-add']);
   }
-
+cancel(){
+  this.editPage = false;
+  this.viewPage = true;
+}
   deleteRequest(id: number): void {
     if (confirm('Are you sure you want to delete this request?')) {
       this.serviceRequestService.deleteServiceRequest(id).subscribe(() => {
@@ -150,8 +149,9 @@ export class ServiceRequestComponent implements OnInit {
 
   saveRequest() {
     this.serviceRequestService.createServiceRequest(this.serviceRequest).subscribe(response => {
-      if (!this.serviceRequests.find(res => res.serviceID == response[0].serviceID))
-        this.serviceRequests.push(response[0]);
+      // if (!this.serviceRequests.find(res => res.serviceID == response[0].serviceID))
+      //   this.serviceRequests.push(response[0]);
+      this.loadServiceRequests();
       alert("Service requested Successfully!");
     });
     this.viewPage = true;

@@ -1,68 +1,199 @@
+/* General container styling */
 .container {
   padding: 20px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Heading style */
+h2.center-align {
+  color: #232f3e;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+/* Table styles */
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+table.striped {
+  border-collapse: collapse;
+}
+
+table.striped thead {
+  background-color: #d52e64;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+table.striped th,
+table.striped td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table.striped tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table.striped tr:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  background-color: #d5bf2e; /* Button background color */
+  color: white; /* Button text color */
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  border: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  margin-right: 5px;
+  /* padding: 12px 24px; Adjusted padding for better appearance */
+}
+
+/* Action button width */
+.action {
+  width: 200px;
+}
+
+.action-btn {
+  width: fit-content;
+}
+
+/* Badge styling */
+.badge {
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  width: 90px;
+  height: 30px;
+}
+
+/* Input field styling */
 .input-field {
+  position: relative;
   margin-bottom: 20px;
 }
 
-.btn {
-  margin-top: 20px;
-  width: fit-content !important;
-  margin-right: 2px !important;
-}
-
-.text-danger {
-  color: red;
-}
-
-.action-btn .btn {
-  margin-right: 5px;
-}
-
-/* Select element styles */
-select {
-  display: inline-block;
-  border: none; /* Remove the border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 10px 15px; /* Add padding for better touch targets */
-  font-size: 16px; /* Increased font size */
-  color: #333; /* Dark text color for readability */
-  background-color: #fff; /* White background for consistency */
-  appearance: none; /* Remove default dropdown arrow */
-  cursor: pointer; /* Pointer cursor for better UX */
-  transition: background-color 0.3s ease; /* Smooth background transition */
-}
-
-/* Custom dropdown arrow */
-.select-wrapper {
-  position: relative;
-}
-
-.select-wrapper:after {
-  /* content: '▼'; Custom arrow */
+.input-field > label {
   position: absolute;
-  right: 10px; /* Positioning */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for centering */
-  pointer-events: none; /* Prevent interaction */
+  left: 10px;
+  color: #9e9e9e;
+  transition: 0.2s ease all;
 }
 
-/* Add focus styles */
-select:focus {
-  outline: none; /* Remove default outline */
-  background-color: #f4f5f5; /* Light blue background on focus for clarity */
+.input-field input,
+.input-field select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #c9c7c7;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 57px;
 }
 
-/* Styling for the label */
-label {
-  font-size: 14px; /* Adjust label font size */
-  color: #555; /* Slightly lighter color for labels */
-  margin-bottom: 5px; /* Space between label and select */
-  display: block; /* Ensure label takes up full width */
+/* Focus state for input fields */
+.input-field input:focus,
+.input-field select:focus {
+  outline: none;
+  border-color: #26a69a;
 }
 
-/* Style for disabled options */
-option:disabled {
-  color: #ccc; /* Light gray for disabled options */
+.input-field label.active,
+.input-field select:not([value=""]) + label {
+  top: -7px;
+  left: 10px;
+  font-size: 12px;
+  color: #26a69a;
+}
+
+/* ng-select styles */
+.ng-select {
+  width: 100%; /* Full width */
+  border: 1px solid #c9c7c7; /* Match input border */
+  border-radius: 4px; /* Match border-radius */
+  height: 57px; /* Match height */
+  padding: 10px; /* Padding for feel */
+  font-size: 16px; /* Font size */
+  background-color: #fff; /* White background */
+}
+
+.ng-select .ng-select-container {
+  border: none; /* Remove default border */
+  height: 100%; /* Full height */
+}
+
+.ng-select .ng-select-container .ng-select-placeholder {
+  color: #9e9e9e; /* Placeholder color */
+}
+
+.ng-select .ng-select-container .ng-select-label {
+  color: #26a69a; /* Active label color */
+}
+
+.ng-select.ng-select-focused .ng-select-container {
+  border-color: #26a69a; /* Focused border color */
+  outline: none; /* No outline */
+}
+
+/* Dropdown options styles */
+.ng-select .ng-option {
+  padding: 10px; /* Padding for options */
+  color: #232f3e; /* Text color */
+}
+
+.ng-select .ng-option:hover {
+  background-color: #f5f5f5; /* Background on hover */
+}
+
+/* Dropdown container styles */
+.ng-select .ng-dropdown-panel {
+  border-radius: 8px; /* Match input field */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  border: 1px solid #c9c7c7; /* Match input border */
+  max-height: 300px; /* Limit height */
+  overflow-y: auto; /* Enable scrolling */
+}
+
+/* Selected item styles */
+.ng-select .ng-option.ng-option-selected {
+  background-color: #d52e64; /* Highlight color */
+  color: white; /* Selected text color */
+}
+
+/* Placeholder style for ng-select */
+.ng-select .ng-select-placeholder {
+  color: #9e9e9e; /* Placeholder text color */
+}
+
+
+.ypm_NgSelectFields::ng-deep .ng-select-container {
+  border: none !important;
+  border-bottom: 1px solid #9e9e9e !important;
+  height: 30px !important;
+  min-height: 30px !important;
+}
+
+.ypm_NgSelectFields::ng-deep .ng-select-container .ng-value-container{
+flex-wrap: nowrap !important;
+overflow:hidden ;
+}
+.ypm_NgSelectFields::ng-deep .ng-select-container .ng-value-container .ng-input>input:focus {
+  border: none !important;
 }

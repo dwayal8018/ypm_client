@@ -1,4 +1,4 @@
-<div class="container" *ngIf="viewPage">
+<div class="" *ngIf="viewPage">
   <h2 class="center-align">Custom PC Builds</h2>
   <a class="btn waves-effect waves-light green" (click)="openAddPage()">Add Build</a>
   <table class="striped">
@@ -15,70 +15,70 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let build of buildList">
+      <tr *ngFor="let build of buildList let id = index">
         <td>{{ build.customPCID }}</td>
         <td>{{ build.buildType }}</td>
-        <td>{{ build.budget }}</td>
+        <td>{{ build.budget | currency }}</td>
         <td>
-          <span [ngClass]="getStatusClass(build.buildStatus)" class="badge">{{ build.buildStatus  }}</span>
+          <span [ngClass]="getStatusClass(build.buildStatus)" class="badge">{{ build.buildStatus }}</span>
         </td>
         <td>{{ build.client?.username }}</td>
         <td>{{ build.techExpert?.username }}</td>
         <td>{{ build.admin?.username }}</td>
         <td class="action-btn">
-          <a class="btn waves-effect waves-light orange" (click)="openEditPage(build.customPCID)">Edit</a>
+          <a class="btn waves-effect waves-light orange" (click)="openEditPage(id)">Edit</a>
           <a class="btn waves-effect waves-light red" (click)="deleteBuild(build.customPCID)">Delete</a>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+
 <div class="container" *ngIf="editPage">
   <h2 class="center-align">{{ currentBuildId ? 'Edit Build' : 'Create Build' }}</h2>
   <form (ngSubmit)="onSubmit()">
 
-    <!-- Client ID Dropdown -->
-    <div class="input-field ">
-      <select id="clientID" name="clientID" [(ngModel)]="selectedClient" required (ngModelChange)="selectClient($event)">
-        <option value="" disabled selected>Select Client</option>
-        <option *ngFor="let client of clientsList" [ngValue]="client">{{ client.username }}</option>
-      </select>
-      <label for="clientID" [ngClass]="{ 'active': selectedClient }">Client ID</label>
+    <div class="input-field col s12 m12">
+      <ng-select id="clientID" [items]="clientsList" bindLabel="username" bindValue="userID"
+      class="ypm_NgSelectFields"  name="admin"  (change)="selectClient($event)" placeholder="Select Client" class="ng-select">
+      </ng-select>
+      <!-- <label for="clientID" class="active">Client</label> -->
     </div>
-    
-    <div class="input-field select-wrapper">
-      <select id="techExpertID" name="techExpertID" [(ngModel)]="selectedTechExpert" required (ngModelChange)="selectTechExpert($event)">
-        <option value="" disabled selected>Select Tech Expert</option>
-        <option *ngFor="let techExpert of techExpertsList" [ngValue]="techExpert">{{ techExpert.username }}</option>
-      </select>
-      <label for="techExpertID" [ngClass]="{ 'active': selectedTechExpert }">Tech Expert ID</label>
-    </div>
-    
-    <div class="input-field select-wrapper">
-      <select id="adminID" name="adminID" [(ngModel)]="selectedAdmin" required (ngModelChange)="selectAdmin($event)">
-        <option value="" disabled selected>Select Admin</option>
-        <option *ngFor="let admin of adminsList" [ngValue]="admin">{{ admin.username }}</option>
-      </select>
-      <label for="adminID" [ngClass]="{ 'active': selectedAdmin }">Admin ID</label>
-    </div>    
 
-    <!-- Other form fields remain unchanged -->
+    <!-- Tech Expert Selection -->
+    <div class="input-field col s12 m12">
+      <ng-select id="techExpertID" [items]="techExpertsList" [(ngModel)]="selectedTechExpert" required
+      class="ypm_NgSelectFields"    bindLabel="username" bindValue="userID" (change)="selectTechExpert($event)"
+                 name="techExpert"  placeholder="Select TechExpert" class="ng-select">
+      </ng-select>
+      <!-- <label for="techExpertID" class="active">Tech Expert</label> -->
+    </div>
+
+    <!-- Admin Selection -->
+    <div class="input-field col s12 m12">
+      <ng-select id="adminID" [items]="adminsList" [(ngModel)]="selectedAdmin" bindLabel="username" bindValue="userID"
+      class="ypm_NgSelectFields"    name="admin" (change)="selectAdmin($event)" placeholder="Select Admin" required class="ng-select">
+      </ng-select>
+      <!-- <label for="adminID" class="active">Admin</label> -->
+    </div>
+ 
+
     <div class="input-field">
-      <input id="buildType" type="text" name="buildType" [(ngModel)]="customBuild.buildType" class="validate" />
+      <input id="buildType" type="text" name="buildType" [(ngModel)]="customBuild.buildType" required class="validate" />
       <label for="buildType" [ngClass]="{ 'active': customBuild.buildType }">Build Type</label>
     </div>
 
     <div class="input-field">
-      <input id="budget" type="number" name="budget" [(ngModel)]="customBuild.budget" class="validate" />
+      <input id="budget" type="number" name="budget" [(ngModel)]="customBuild.budget" required class="validate" />
       <label for="budget" [ngClass]="{ 'active': customBuild.budget }">Budget</label>
     </div>
 
     <div class="input-field">
-      <input id="buildStatus" type="text" name="buildStatus" [(ngModel)]="customBuild.buildStatus" class="validate" />
+      <input id="buildStatus" type="text" name="buildStatus" [(ngModel)]="customBuild.buildStatus" required class="validate" />
       <label for="buildStatus" [ngClass]="{ 'active': customBuild.buildStatus }">Build Status</label>
     </div>
 
-    <button class="btn waves-effect waves-light" type="submit">Save</button>
-    <button class="btn waves-effect waves-light" type="button" (click)="cancelForm()">Cancel</button>
+    <button class="btn waves-effect waves-light green" type="submit">Save</button>
+    <button class="btn waves-effect waves-light red" type="button" (click)="cancelForm()">Cancel</button>
   </form>
 </div>

@@ -42,7 +42,7 @@ export class OrdersComponent implements OnInit {
   }
 
   loadServiceRequests() {
-    this.serviceRequestService.getAllServiceRequests().subscribe(data => {
+    this.serviceRequestService.getAllServiceRequests(localStorage.getItem('userRole'),localStorage.getItem('userID')).subscribe(data => {
       this.serviceRequests = data;
     });
   }

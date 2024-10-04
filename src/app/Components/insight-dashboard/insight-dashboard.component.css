@@ -1,0 +1,106 @@
+/* 
+.dashboard-overview {
+  padding: 2rem;
+}
+
+.overview-cards {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 200px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+} */
+
+.dashboard-container {
+  padding: 20px;
+}
+
+.dashboard-metrics {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.metric-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  height: 165px;
+  width: 165px;
+}
+
+.metric-card h3 {
+  margin-bottom: -15px;
+  font-size: 16px;
+  color: #555;
+}
+
+.metric-card p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.charts-container {
+  margin-top: 30px;
+}
+
+.chart {
+  width: 100%;
+  max-width: 600px; /* Limit max width */
+  margin: auto; /* Center the chart */
+}
+
+canvas {
+  width: 100% !important; /* Ensure canvas is responsive */
+  height: auto !important; /* Maintain aspect ratio */
+  max-height: 400px; /* Limit max height */
+}
+.recent-feedback {
+  background-color: #f9f9f9; /* Light background */
+  border: 1px solid #ddd; /* Border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 20px; /* Spacing */
+  margin: 20px 0; /* Margin for spacing */
+}
+
+.recent-feedback h3 {
+  margin-bottom: 15px; /* Spacing below the header */
+}
+
+.recent-feedback ul {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0; /* Remove padding */
+}
+
+.recent-feedback li {
+  margin-bottom: 10px; /* Spacing between items */
+}
+
+.recent-feedback blockquote {
+  font-style: italic; /* Italics for quotes */
+}
+
+.recent-feedback cite {
+  display: block; /* New line for citation */
+  font-weight: bold; /* Bold for emphasis */
+  margin-top: 5px; /* Spacing above citation */
+}

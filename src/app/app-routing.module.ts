@@ -16,19 +16,12 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { AuthGuard } from './Guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'users', component: UserComponent },
-  { path: 'service-requests', component: ServiceRequestComponent },
-  { path: 'custom-pc-builds', component: CustomPcBuildComponent },
-  { path: 'pc-components', component: PcComponentComponent },
-  { path: 'component-inventories', component: ComponentInventoryComponent },
-  { path: 'orders', component: OrdersComponent },
-  { path: 'payments', component: PaymentComponent },
-  { path: 'invoices', component: InvoiceComponent },
-  { path: 'deliveries', component: DeliveryComponent },
-  { path: 'review-feedbacks', component: ReviewFeedbackComponent },
-  { path: 'register', component: RegisterComponent },
+   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent }, // Protect routes
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./Components/dashboard/dashboard.module').then(m => m.DashboardModule), // Lazy loading
+  },
   { path: '', redirectTo: '/register', pathMatch: 'full' } // Default route
 ];
 

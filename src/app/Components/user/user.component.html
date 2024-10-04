@@ -1,6 +1,6 @@
-<div class="container" *ngIf="viewPage">
+<div class="" *ngIf="viewPage">
   <h2 class="center-align">User List</h2>
-  <a class="btn waves-effect waves-light green" (click)="openAddPage()">Add User</a>
+  <a class="btn waves-effect waves-light " (click)="openAddPage()">Add User</a>
   <table class="striped">
     <thead>
       <tr>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of userList">
+      <tr *ngFor="let user of userList; let idx = index" >
         <td>{{ user.userID }}</td>
         <td>{{ user.username }}</td>
         <td>{{ user.email }}</td>
@@ -22,64 +22,74 @@
         <td>{{ user.address }}</td>
         <td>{{ user.role }}</td>
         <td class="action-btn">
-          <a class="btn waves-effect waves-light orange" (click)="editUser(user.userID ?? 0)">Edit</a>
-          <a class="btn waves-effect waves-light red" (click)="deleteUser(user.userID ?? 0)">Delete</a>
+          <a class="btn waves-effect waves-light orange" (click)="openEditPage(idx)"> <i
+              class="fas fa-edit"></i> Edit </a>
+          <a class="btn waves-effect waves-light red" (click)="deleteUser(idx)"> <i class="fas fa-trash"></i>
+            Delete </a>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 <div class="container" *ngIf="editPage">
-  <h2 class="center-align">Create User</h2>
-  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <h2 class="center-align">{{ isEdit ? 'Edit User' : 'Create User' }}</h2>
+  <form (ngSubmit)="onSubmit()">
+
     <div class="input-field">
-      <input id="username" formControlName="username" class="validate" />
-      <label for="username">Username</label>
-      <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" class="text-danger">
+      <input id="passname" [(ngModel)]="newUser.username" name="passname" class="validate" required
+        (blur)="usernameTouched = true" />
+      <label for="passname" [ngClass]="{ 'active': newUser.username }">Name</label>
+      <div *ngIf="!newUser.username && usernameTouched" class="text-danger">
         Username is required.
       </div>
     </div>
 
     <div class="input-field">
-      <input id="password" type="password" formControlName="password" class="validate" />
-      <label for="password">Password</label>
-      <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" class="text-danger">
+      <input id="passKey" type="password" [(ngModel)]="newUser.password" name="passKey" class="validate" required
+        (blur)="passwordTouched = true" />
+      <label for="passKey" [ngClass]="{ 'active': newUser.password }">Confidential Key</label>
+      <div *ngIf="!newUser.password && passwordTouched" class="text-danger">
         Password is required.
       </div>
     </div>
 
     <div class="input-field">
-      <input id="email" type="email" formControlName="email" class="validate" />
-      <label for="email">Email</label>
-      <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="text-danger">
+      <input id="email" type="email" [(ngModel)]="newUser.email" name="email" class="validate" required
+        (blur)="emailTouched = true" />
+      <label for="email" [ngClass]="{ 'active': newUser.email }">Email</label>
+      <div *ngIf="!newUser.email && emailTouched" class="text-danger">
         Valid email is required.
       </div>
     </div>
 
     <div class="input-field">
-      <input id="phoneNumber" formControlName="phoneNumber" class="validate" />
-      <label for="phoneNumber">Phone Number</label>
-      <div *ngIf="userForm.get('phoneNumber')?.invalid && userForm.get('phoneNumber')?.touched" class="text-danger">
+      <input id="phoneNumber" [(ngModel)]="newUser.phoneNumber" name="phoneNumber" class="validate" required
+        (blur)="phoneNumberTouched = true" />
+      <label for="phoneNumber" [ngClass]="{ 'active': newUser.phoneNumber }">Phone Number</label>
+      <div *ngIf="!newUser.phoneNumber && phoneNumberTouched" class="text-danger">
         Phone number is required.
       </div>
     </div>
 
     <div class="input-field">
-      <input id="address" formControlName="address" class="validate" />
-      <label for="address">Address</label>
-      <div *ngIf="userForm.get('address')?.invalid && userForm.get('address')?.touched" class="text-danger">
+      <input id="address" [(ngModel)]="newUser.address" name="address" class="validate" required
+        (blur)="addressTouched = true" />
+      <label for="address" [ngClass]="{ 'active': newUser.address }">Address</label>
+      <div *ngIf="!newUser.address && addressTouched" class="text-danger">
         Address is required.
       </div>
     </div>
 
     <div class="input-field">
-      <input id="role" formControlName="role" class="validate" />
-      <label for="role">Role</label>
-      <div *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched" class="text-danger">
+      <input id="role" [(ngModel)]="newUser.role" name="role" class="validate" required (blur)="roleTouched = true" />
+      <label for="role" [ngClass]="{ 'active': newUser.role }">Role</label>
+      <div *ngIf="!newUser.role && roleTouched" class="text-danger">
         Role is required.
       </div>
     </div>
 
-    <button class="btn waves-effect waves-light" type="submit" [disabled]="userForm.invalid">Save</button>
+    <button class="btn waves-effect waves-light green" type="submit">Save</button>
+    <button class="btn waves-effect waves-light" type="button" (click)="cancelForm()">Cancel</button>
+
   </form>
 </div>

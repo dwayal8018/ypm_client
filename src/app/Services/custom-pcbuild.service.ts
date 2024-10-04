@@ -9,15 +9,15 @@ import { CustomPCBuild } from '../Models/custom-pc-build.model';
 export class CustomPCBuildService {
   private baseUrl = 'http://localhost:8080/api/custom-pc-builds'; // Update with your actual backend URL
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getBuilds(): Observable<CustomPCBuild[]> {
-    return this.http.get<CustomPCBuild[]>(`${this.baseUrl}`);
+  getBuilds(userRole: any, userID: any): Observable<CustomPCBuild[]> {
+    return this.http.get<CustomPCBuild[]>(`${this.baseUrl}` + "?userRole=" + userRole + "&userID=" + userID);
   }
 
-  getBuild(id: number): Observable<CustomPCBuild> {
-    return this.http.get<CustomPCBuild>(`${this.baseUrl}/${id}`);
-  }
+  // getBuild(id: number): Observable<CustomPCBuild> {
+  //   return this.http.get<CustomPCBuild>(`${this.baseUrl}/${id}`);
+  // }
 
   createBuild(build: CustomPCBuild): Observable<CustomPCBuild> {
     return this.http.post<CustomPCBuild>(`${this.baseUrl}`, build);

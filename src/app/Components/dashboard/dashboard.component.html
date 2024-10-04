@@ -1,32 +1,34 @@
 <div class="dashboard-container">
-    <div *ngIf="userRole == 'admin'">
-      <h2>Admin Dashboard</h2>
-      <p>Welcome Admin! Here are your tasks:</p>
-      <ul>
-        <li>Manage Users</li>
-        <li>View Reports</li>
-        <li>System Settings</li>
-      </ul>
-    </div>
-  
-    <div *ngIf="userRole === 'client'">
-      <h2>Client Dashboard</h2>
-      <p>Welcome Client! Here are your options:</p>
-      <ul>
-        <li>View Orders</li>
-        <li>Request Support</li>
-        <li>Manage Profile</li>
-      </ul>
-    </div>
-  
-    <div *ngIf="userRole === 'tech expert'">
-      <h2>Tech Expert Dashboard</h2>
-      <p>Welcome Tech Expert! Here’s what you can do:</p>
-      <ul>
-        <li>View Assigned Service Requests</li>
-        <li>Update Request Status</li>
-        <li>Manage Feedback</li>
-      </ul>
-    </div>
+  <div class="sidebar">
+    <!-- <h1>Your PC Mentor</h1> -->
+    <h1>Your PC Mentor </h1>
+    <!-- <h1>Admin Dashboard</h1> -->
+    <h1>Welcome, {{userName}}!</h1>
+    <button (click)="logout()">Logout</button>
+      <!-- <header class="dashboard-header">
+        <div class="brand-logo">
+        </div>
+        <div class="admin-profile">
+          <img src="assets/admin-avatar.png" alt="Admin Avatar">
+          <span>Welcome, {{userName}}!!</span>
+          <button (click)="logout()">Logout</button>
+        </div>
+      </header> -->
+      <nav>
+        <ul>
+          <li *ngFor="let tab of tabs" 
+              [ngClass]="{ 'active': currentTab === tab.value }" 
+              (click)="navigateTo(tab.value)">
+            {{ tab.label }}
+          </li>
+        </ul>        
+      </nav>
   </div>
-  
+  <div class="content">
+      <!-- <h2>Welcome, Admin!</h2> -->
+      <div id="dashboard-overview">
+        <router-outlet></router-outlet>
+          <!-- Content for the dashboard overview -->
+      </div>
+  </div>
+</div>
