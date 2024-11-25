@@ -107,4 +107,8 @@ export class UserComponent implements OnInit {
     this.editPage = false;
     this.viewPage = true;
   }
+
+  selectRole(event:any){
+    this.newUser.role=event.target.value;
+  }
 }

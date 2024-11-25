@@ -1,35 +1,37 @@
 <div class="" *ngIf="viewPage">
   <h2 class="center-align">User List</h2>
   <a class="btn waves-effect waves-light " (click)="openAddPage()">Add User</a>
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Phone Number</th>
-        <th>Address</th>
-        <th>Role</th>
-        <th class="action">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of userList; let idx = index" >
-        <td>{{ user.userID }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.phoneNumber }}</td>
-        <td>{{ user.address }}</td>
-        <td>{{ user.role }}</td>
-        <td class="action-btn">
-          <a class="btn waves-effect waves-light orange" (click)="openEditPage(idx)"> <i
-              class="fas fa-edit"></i> Edit </a>
-          <a class="btn waves-effect waves-light red" (click)="deleteUser(idx)"> <i class="fas fa-trash"></i>
-            Delete </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Address</th>
+          <th>Role</th>
+          <th class="action">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userList; let idx = index">
+          <td>{{ user.userID }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phoneNumber }}</td>
+          <td>{{ user.address }}</td>
+          <td>{{ user.role }}</td>
+          <td class="action-btn">
+            <a class="btn waves-effect waves-light orange" (click)="openEditPage(idx)"> <i class="fas fa-edit"></i> Edit
+            </a>
+            <a class="btn waves-effect waves-light red" (click)="deleteUser(user.userID)"> <i class="fas fa-trash"></i>
+              Delete </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <div class="container" *ngIf="editPage">
   <h2 class="center-align">{{ isEdit ? 'Edit User' : 'Create User' }}</h2>
@@ -79,10 +81,13 @@
         Address is required.
       </div>
     </div>
-
-    <div class="input-field">
-      <input id="role" [(ngModel)]="newUser.role" name="role" class="validate" required (blur)="roleTouched = true" />
-      <label for="role" [ngClass]="{ 'active': newUser.role }">Role</label>
+    <div class="input-field col s12">
+      <select (change)="selectRole($event)">
+        <option value="" disabled selected>Role</option>
+        <option value="admin">Admin</option>
+        <option value="client">Client</option>
+        <option value="tech Expert">Tech Expert</option>
+      </select>
       <div *ngIf="!newUser.role && roleTouched" class="text-danger">
         Role is required.
       </div>

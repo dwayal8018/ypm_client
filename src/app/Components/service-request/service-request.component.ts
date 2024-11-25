@@ -13,37 +13,16 @@ declare var M: any;
 export class ServiceRequestComponent implements OnInit {
   serviceRequest: ServiceRequest = new ServiceRequest();
   serviceRequests: ServiceRequest[] = [];
-  // serviceRequests =
-  //   [
-  //     {
-  //       serviceID: 1,
-  //       serviceReqDate: new Date(),
-  //       serviceReqStatus: 'Pending',
-  //       priority: "Medium",
-  //       type: "A",
-  //       clientID: "3",
-  //       techExpertID: 2
-  //     },
-  //     {
-  //       serviceID: 2,
-  //       serviceReqDate: new Date(),
-  //       serviceReqStatus: 'Pending',
-  //       priority: "High",
-  //       type: "B",
-  //       clientID: "1",
-  //       techExpertID: 2
-  //     }
-  //   ];
+
   editPage: boolean = false;
   viewPage: boolean = false;
   title: string = "Add";
   userList: User[] = [];
   techExpertsList: User[] = [];
   clientsList: User[] = [];
-  selectedClient: User=new User();
-  selectedTechExpert: User=new User();
+  selectedClient: User|null=null;
+  selectedTechExpert: User|null=null;
 
-  
   constructor(
     private serviceRequestService: ServiceRequestService,
     private userService: UserService,
@@ -81,12 +60,12 @@ export class ServiceRequestComponent implements OnInit {
   selectClient(event: any) {
     this.selectedClient = event;
     this.serviceRequest.client=new User();
-    this.serviceRequest.client.userID = this.selectedClient.userID;
+    this.serviceRequest.client.userID = this.selectedClient?.userID||0;
 }
   selectTechExpert(event:any){
     this.selectedTechExpert=event;
     this.serviceRequest.techExpert=new User();
-    this.serviceRequest.techExpert.userID=this.selectedTechExpert.userID;
+    this.serviceRequest.techExpert.userID=this.selectedTechExpert?.userID||0;
   }
   loadUsers(search: string): void {
     this.userService.getUsers(search).subscribe((data: User[]) => {

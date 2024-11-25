@@ -108,10 +108,14 @@ table.striped tr:hover {
 
 .input-field label.active,
 .input-field select:not([value=""]) + label {
-  top: -20px;
+  top: -5px;
   left: 10px;
   font-size: 12px;
   color: #26a69a;
 }
 
 
+select{
+  display: block !important;
+
+}

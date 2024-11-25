@@ -1,10 +1,86 @@
-<div class="container">
+<!-- Payment Display Section -->
+<!-- Payment Display Section -->
+<div *ngIf="viewPage">
+  <h2 class="center-align">Payments</h2>
+  <a class="btn waves-effect waves-light green" (click)="openAddPage()">Add Payment</a>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Payment Method</th>
+        <th>Status</th>
+        <th>Payment Date</th>
+        <th>Order ID</th>
+        <th>Client ID</th>
+        <th>Total Cost</th>
+        <th class="action">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let payment of paymentList; let id = index">
+        <td>{{ payment.id }}</td>
+        <td>{{ payment.paymentMethod }}</td>
+        <td>
+          <span [ngClass]="getStatusClass(payment.paymentStatus)" class="badge">{{ payment.paymentStatus }}</span>
+        </td>
+        <td>{{ payment.paymentDate | date }}</td>
+        <td>{{ payment.order.id }}</td>
+        <td>{{ payment.order.client?.username }}</td>
+        <td>{{ payment.order.totalCost | currency }}</td>
+        <td class="action-btn">
+          <a class="btn waves-effect waves-light orange" (click)="openEditPage(payment.id)">Edit</a>
+          <a class="btn waves-effect waves-light red" (click)="deletePayment(payment.id)">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+<!-- Payment Edit/Create Section -->
+<div class="container" *ngIf="editPage">
+  <h2 class="center-align">{{ currentPaymentId ? 'Edit Payment' : 'Create Payment' }}</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="input-field">
+      <input id="paymentMethod" [(ngModel)]="payment.paymentMethod" name="paymentMethod" class="validate" required />
+      <label for="paymentMethod" [ngClass]="{ 'active': payment.paymentMethod }">Payment Method</label>
+    </div>
+
+    <div class="input-field">
+      <input id="paymentStatus" [(ngModel)]="payment.paymentStatus" name="paymentStatus" class="validate" required />
+      <label for="paymentStatus" [ngClass]="{ 'active': payment.paymentStatus }">Payment Status</label>
+    </div>
+
+    <div class="input-field">
+      <input id="paymentDate" type="date" [(ngModel)]="payment.paymentDate" name="paymentDate" class="validate" required />
+      <label for="paymentDate" [ngClass]="{ 'active': payment.paymentDate }">Payment Date</label>
+    </div>
+
+    <!-- Order selection (order ID and client info will be visible but user will select order) -->
+    <div class="input-field">
+      <select id="orderId" [(ngModel)]="payment.order.id" name="orderId" class="validate" required>
+        <option *ngFor="let order of ordersList" [value]="order.id">{{ order.id }} - {{ order.client?.username }} - ${{ order.totalCost }}</option>
+      </select>
+      <label for="orderId">Select Order</label>
+    </div>
+
+    <button class="btn waves-effect waves-light" type="submit">Save</button>
+    <button class="btn waves-effect waves-light red" type="button" (click)="cancelPage()">Cancel</button>
+  </form>
+</div>
+
+
+
+
+
+<!-- <div class="container">
   <h2 class="center-align">Payment Details</h2>
 
-  <!-- Payment Form -->
   <form (ngSubmit)="onSubmit()" *ngIf="paymentForm">
     
-    <!-- Payment Method -->
     <div class="input-field">
       <label for="paymentMethod" class="active">Payment Method</label>
       <select id="paymentMethod" [(ngModel)]="payment.paymentMethod" name="paymentMethod">
@@ -12,7 +88,6 @@
       </select>
     </div>
 
-    <!-- Payment Status -->
     <div class="input-field">
       <label for="paymentStatus" class="active">Payment Status</label>
       <select id="paymentStatus" [(ngModel)]="payment.paymentStatus" name="paymentStatus">
@@ -20,20 +95,17 @@
       </select>
     </div>
 
-    <!-- Payment Date -->
     <div class="input-field">
       <label for="paymentDate" class="active">Payment Date</label>
       <input type="date" id="paymentDate" [(ngModel)]="payment.paymentDate" name="paymentDate" />
     </div>
 
-    <!-- Order ID -->
     <div class="input-field">
       <label for="orderID" class="active">Order ID</label>
-      <input type="text" id="orderID" [(ngModel)]="payment.order.id" name="orderID" readonly />
+      <input type="number" id="orderID" [(ngModel)]="payment.order.id" name="orderID" readonly />
     </div>
 
-    <!-- Save and Cancel Buttons -->
     <button class="btn waves-effect waves-light" type="submit">Save Payment</button>
     <button class="btn waves-effect waves-light red" type="button" (click)="cancel()">Cancel</button>
   </form>
-</div>
+</div> -->

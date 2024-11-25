@@ -22,7 +22,7 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./Components/dashboard/dashboard.module').then(m => m.DashboardModule), // Lazy loading
   },
-  { path: '', redirectTo: '/register', pathMatch: 'full' } // Default route
+  { path: '', redirectTo: '/login', pathMatch: 'full' } // Default route
 ];
 
 @NgModule({

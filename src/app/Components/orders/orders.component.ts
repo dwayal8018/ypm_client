@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PCComponent } from 'src/app/Models/pc-component.model';
 import { ServiceRequest } from 'src/app/Models/service-request.model';
-import { MyApiService } from 'src/app/Services/order.service';
+import { OrderService } from 'src/app/Services/order.service';
 import { PCComponentService } from 'src/app/Services/pc-component.service';
 import { ServiceRequestService } from 'src/app/Services/service-request.service';
 
@@ -18,7 +18,7 @@ export class OrdersComponent implements OnInit {
   serviceRequests : ServiceRequest[]=[];
 
   constructor(private fb: FormBuilder,
-    private apiService: MyApiService,
+    private orderService: OrderService,
     private componentService: PCComponentService,
     private serviceRequestService: ServiceRequestService,) {
     this.orderForm = this.fb.group({

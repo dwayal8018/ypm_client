@@ -126,7 +126,7 @@ table.striped tr:hover {
 /* ng-select styles */
 .ng-select {
   width: 100%; /* Full width */
-  border: 1px solid #c9c7c7; /* Match input border */
+  border: 1px solid #26a69a; /* Match input border */
   border-radius: 4px; /* Match border-radius */
   height: 57px; /* Match height */
   padding: 10px; /* Padding for feel */
@@ -155,7 +155,7 @@ table.striped tr:hover {
 /* Dropdown options styles */
 .ng-select .ng-option {
   padding: 10px; /* Padding for options */
-  color: #232f3e; /* Text color */
+  color: #232f3e !important; /* Text color */
 }
 
 .ng-select .ng-option:hover {
@@ -163,10 +163,10 @@ table.striped tr:hover {
 }
 
 /* Dropdown container styles */
-.ng-select .ng-dropdown-panel {
+ .ng-dropdown-panel {
   border-radius: 8px; /* Match input field */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-  border: 1px solid #c9c7c7; /* Match input border */
+  border: 1px solid #26a69a !important; /* Match input border */
   max-height: 300px; /* Limit height */
   overflow-y: auto; /* Enable scrolling */
 }
@@ -185,7 +185,7 @@ table.striped tr:hover {
 
 .ypm_NgSelectFields::ng-deep .ng-select-container {
   border: none !important;
-  border-bottom: 1px solid #9e9e9e !important;
+  border-bottom: 1px solid #19ca46 !important;
   height: 30px !important;
   min-height: 30px !important;
 }
